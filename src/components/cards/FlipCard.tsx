@@ -19,18 +19,25 @@ export const FlipCard: React.FC<FlipCardProps> = ({
   return (
     <div
       onClick={() => setIsFlipped(!isFlipped)}
-      className="cursor-pointer perspective-1000 select-none"
-      style={{ width, height }}
+      className="cursor-pointer select-none"
+      style={{ width, height, perspective: 1000 }}
     >
       <motion.div
         animate={{ rotateY: isFlipped ? 180 : 0 }}
         transition={{ duration: 0.6, ease: 'easeInOut' }}
-        className="relative w-full h-full rounded-2xl shadow-xl transform-style-3d"
+        style={{ transformStyle: 'preserve-3d' }}
+        className="relative w-full h-full rounded-2xl shadow-xl"
       >
-        <div className="absolute inset-0 w-full h-full bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between backface-hidden">
+        <div
+          style={{ backfaceVisibility: 'hidden' }}
+          className="absolute inset-0 w-full h-full bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between"
+        >
           {front}
         </div>
-        <div className="absolute inset-0 w-full h-full bg-slate-800 border border-slate-700 rounded-2xl p-6 flex flex-col justify-between rotate-y-180 backface-hidden">
+        <div
+          style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
+          className="absolute inset-0 w-full h-full bg-slate-800 border border-slate-700 rounded-2xl p-6 flex flex-col justify-between"
+        >
           {back}
         </div>
       </motion.div>
